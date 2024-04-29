@@ -31,8 +31,8 @@ public class User
     @Column(unique = true)
     private String email;
 
-    @Pattern(regexp = "^(?=(.*[A-Z]){1})(?=(.*[a-z]){1})(?=(.*[0-9]){1})(?=(.*[@#$%^!&+=.\\-_*]){2})([a-zA-Z0-9@#$%^!&+=*.\\-_]){8,}$"
-            ,message = "Password must contain one Capital Letter and one small Letter one Number and one special characters")
+    @NotBlank(message = "Password is required")
+    @Size(min = 5, max = 10, message = "Password length should be between 5 and 10")
     private String password;
     private String role;
 

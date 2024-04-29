@@ -50,19 +50,23 @@ public class HomeController
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session,
                                @RequestParam(value="agreement", defaultValue = "false") boolean agreement)
     {
+        System.out.println("Main methoid");
         try {
             if(!agreement)
             {
+                System.out.println("Aggreement");
                 throw new Exception("You have not agreed terms & conditions");
             }
             if(result.hasErrors())
             {
+                System.out.println("VALIDA"+result);
                 model.addAttribute("user",user);
                 return "signup";
             }
             user.setRole("ROLE_USER");
             user.setEnabled(true);
             User user1 = service.saveUser(user);
+            System.out.println(user1);
             model.addAttribute("user",new User());
             session.setAttribute("message", new Messages("Successfully Rsgiseter!!","alert-success"));
             return "signup";

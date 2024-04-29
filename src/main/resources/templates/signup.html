@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})"
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}"
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <label for="password">Password :</label>
                             <input type="password" th:field="*{password}"
-                                   class="form-control" th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" placeholder="Enter Your Password">
+                                   class="form-control" th:classappend="${#fields.hasErrors('password')?'is-invalid':''}" placeholder="Enter Your Password">
                             <div class="invalid-feedback">
                                 <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                             </div>
