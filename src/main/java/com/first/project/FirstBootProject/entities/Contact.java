@@ -22,7 +22,7 @@ public class Contact
     private String phone;
     private String image;
     @Column(length = 500)
-    private String decsription;
+    private String description;
     @ManyToOne
     private User user;
 }

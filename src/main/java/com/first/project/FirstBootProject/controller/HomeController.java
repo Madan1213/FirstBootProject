@@ -5,9 +5,11 @@ import com.first.project.FirstBootProject.helper.Messages;
 import com.first.project.FirstBootProject.repository.UserRepository;
 import com.first.project.FirstBootProject.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.service.annotation.GetExchange;
 
@@ -45,13 +47,18 @@ public class HomeController
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, Model model, HttpSession session,
+    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session,
                                @RequestParam(value="agreement", defaultValue = "false") boolean agreement)
     {
         try {
             if(!agreement)
             {
                 throw new Exception("You have not agreed terms & conditions");
+            }
+            if(result.hasErrors())
+            {
+                model.addAttribute("user",user);
+                return "signup";
             }
             user.setRole("ROLE_USER");
             user.setEnabled(true);

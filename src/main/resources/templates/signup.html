@@ -21,18 +21,32 @@
                         <img style="width:80px" th:src="@{/img/register.png}" />
                     </div>
                     <h1 class="text-center">Sign Up/Register</h1>
-                    <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+                    <form action="#" novalidate th:action="@{/register}" th:object="${user}" method="post">
                         <div class="form-group">
                             <label for="name">Name :</label>
-                            <input type="text" th:field="*{name}" th:value="${user.name}" class="form-control" placeholder="Enter Your Name">
+                            <input type="text" th:field="*{name}" th:value="${user.name}"
+                                   class="form-control "
+                                   th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                                   placeholder="Enter Your Name">
+                            <div class="invalid-feedback" >
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text0-danger" ></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="email">Email :</label>
-                            <input type="email" th:field="*{email}" th:value="${user.email}" class="form-control" placeholder="Enter Your Email">
+                            <input type="email" th:field="*{email}" th:value="${user.email}"
+                                   th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" class="form-control" placeholder="Enter Your Email">
+                            <div class="invalid-feedback">
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="password">Password :</label>
-                            <input type="password" th:field="*{password}" class="form-control" placeholder="Enter Your Password">
+                            <input type="password" th:field="*{password}"
+                                   class="form-control" th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" placeholder="Enter Your Password">
+                            <div class="invalid-feedback">
+                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="about">About :</label>
