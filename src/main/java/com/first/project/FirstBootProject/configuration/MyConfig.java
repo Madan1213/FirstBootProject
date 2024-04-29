@@ -9,7 +9,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -17,9 +20,19 @@ public class MyConfig
 {
 
     @Bean
-    public UserDetailsService userDetailsService()
+    public UserDetailsService userDetailsService(DataSource dataSource)
     {
-        return new UserDetailsServiceImpl();
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        //Define Query to retrieve user by username
+        jdbcUserDetailsManager.setUsersByUsernameQuery(
+                "select email,password,enabled from user where id=?"
+        );
+        //Define query to retrieve the authorities/roles by username
+        jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
+                "select role from user where id=?"
+        );
+        return jdbcUserDetailsManager;
     }
 
     @Bean
@@ -28,26 +41,25 @@ public class MyConfig
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider()
-    {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(this.userDetailsService());
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthenticationProvider;
-    }
+
     /*@Bean
     public void configure(AuthenticationManagerBuilder auth)throws Exception
     {
         auth.authenticationProvider(authenticationProvider());
     }*/
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests(configurer->
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(configurer->
                 configurer.requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("USER")
-                        .anyRequest().permitAll()
-        );
-        return httpSecurity.build();
+                        .anyRequest().authenticated()
+        ).formLogin(form->
+                form.loginPage("/showLoginForm")
+                        .loginProcessingUrl("/authenticateTheUser")
+                        .permitAll()
+                ).logout(logout->
+                    logout.permitAll()
+                );
+        return http.build();
     }
 }
