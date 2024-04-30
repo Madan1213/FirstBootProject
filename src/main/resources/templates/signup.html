@@ -11,42 +11,26 @@
         <div class="row">
             <div class="col-md-8 offset-md-2 mt-2">
                 <div class="my-card">
-                        <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
-                            <p th:text="${session.message.content}"> </p>
-                            <!--<th:block th:text="${#session.removeAttribute('message')}"></th:block>-->
-                            <!--<th:block th:if="${session.message}" th:remove="all"></th:block>-->
-                        </div>
-
+                    <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
+                        <p th:text="${session.message.content}"> </p>
+                        <th:block th:text="${session.removeAttribute('messahe')}"></th:block>
+                    </div>
                     <div class="container text-center">
                         <img style="width:80px" th:src="@{/img/register.png}" />
                     </div>
                     <h1 class="text-center">Sign Up/Register</h1>
-                    <form action="#" novalidate th:action="@{/register}" th:object="${user}" method="post">
+                    <form action="#" th:action="@{/register}" th:object="${user}" method="post">
                         <div class="form-group">
                             <label for="name">Name :</label>
-                            <input type="text" th:field="*{name}" th:value="${user.name}"
-                                   class="form-control "
-                                   th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
-                                   placeholder="Enter Your Name">
-                            <div class="invalid-feedback" >
-                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text0-danger" ></span>
-                            </div>
+                            <input type="text" th:field="*{name}" th:value="${user.name}" class="form-control" placeholder="Enter Your Name">
                         </div>
                         <div class="form-group">
                             <label for="email">Email :</label>
-                            <input type="email" th:field="*{email}" th:value="${user.email}"
-                                   th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" class="form-control" placeholder="Enter Your Email">
-                            <div class="invalid-feedback">
-                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                            </div>
+                            <input type="email" th:field="*{email}" th:value="${user.email}" class="form-control" placeholder="Enter Your Email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password :</label>
-                            <input type="password" th:field="*{password}"
-                                   class="form-control" th:classappend="${#fields.hasErrors('password')?'is-invalid':''}" placeholder="Enter Your Password">
-                            <div class="invalid-feedback">
-                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-                            </div>
+                            <input type="password" th:field="*{password}" class="form-control" placeholder="Enter Your Password">
                         </div>
                         <div class="form-group">
                             <label for="about">About :</label>
