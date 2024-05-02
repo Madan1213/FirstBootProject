@@ -48,7 +48,8 @@ public class MyConfig
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer->
-                configurer.requestMatchers("/admin/**").authenticated()
+                configurer.
+                        requestMatchers("/admin/**").authenticated()
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/","/signup","/home").permitAll()
                         .anyRequest().permitAll()
@@ -56,11 +57,13 @@ public class MyConfig
                 form.loginPage("/showLoginForm")
                         .usernameParameter("email")
                         .loginProcessingUrl("/authenticateTheUser")
+                        .defaultSuccessUrl("/user/index")
                         .permitAll()
         ).logout(logout->
-                logout.deleteCookies("JSESSIONID").permitAll()
+                logout.logoutUrl("/logout").
+                        deleteCookies("JSESSIONID").permitAll()
         ).exceptionHandling(configure->
-                configure.accessDeniedPage("/access-denied"));
+                configure.accessDeniedPage("/access-denied")).csrf(csrf->csrf.disable());
         return http.build();
     }
 
