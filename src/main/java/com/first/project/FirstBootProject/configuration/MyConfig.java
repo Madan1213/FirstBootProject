@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,9 +34,9 @@ public class MyConfig
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         // Return a NoOpPasswordEncoder which doesn't encode passwords
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     /*@Bean
@@ -48,17 +49,18 @@ public class MyConfig
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer->
                 configurer.requestMatchers("/admin/**").authenticated()
-                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/","/signup","/home").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
         ).formLogin(form->
                 form.loginPage("/showLoginForm")
                         .usernameParameter("email")
                         .loginProcessingUrl("/authenticateTheUser")
                         .permitAll()
         ).logout(logout->
-                logout.permitAll()
-        );
+                logout.deleteCookies("JSESSIONID").permitAll()
+        ).exceptionHandling(configure->
+                configure.accessDeniedPage("/access-denied"));
         return http.build();
     }
 

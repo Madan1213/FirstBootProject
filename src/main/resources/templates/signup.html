@@ -13,7 +13,7 @@
                 <div class="my-card">
                     <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
                         <p th:text="${session.message.content}"> </p>
-                        <th:block th:text="${session.removeAttribute('messahe')}"></th:block>
+                       <!-- <th:block th:text="${session.removeAttribute('message')}"></th:block>-->
                     </div>
                     <div class="container text-center">
                         <img style="width:80px" th:src="@{/img/register.png}" />

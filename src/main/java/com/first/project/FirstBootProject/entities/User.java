@@ -31,8 +31,8 @@ public class User
     @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "Password is required")
-    @Size(min = 5, max = 10, message = "Password length should be between 5 and 10")
+    /*@NotBlank(message = "Password is required")
+    @Size(min = 5, max = 10, message = "Password length should be between 5 and 10")*/
     private String password;
     private String role;
 
