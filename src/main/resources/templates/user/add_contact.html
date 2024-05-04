@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+</head>
+<body>
+    <section>
+        <div class="card m-3">
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <h4 class="text-center p-2 text-weight-bold text-uppercase">Add Contact</h4>
+                            <form th:action="@{/user/saveContact}" class="mt-2" th:object="${contact}"
+                                  enctype="multipart/form-data" method="post">
+
+                                <!--First Name/ Name field-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-plus"></i>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" type="text" id="name" th:field="*{name}" placeholder="Enter Contact Name">
+                                </div>
+
+                                <!--Second Name Field-->
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                    <input class="form-control" type="text" th:field="*{secondName}" id="secondName" placeholder="Enter Nick Name">
+                                </div>
+
+                                <!--Phone Field-->
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                    </div>
+                                    <input type="number" class="form-control" th:field="*{phone}" placeholder="Enter Phone Number">
+                                </div>
+
+
+                                <!--Email Field-->
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa-solid fa-at"></i>
+                                        </div>
+                                    </div>
+                                    <input type="email" class="form-control" th:field="*{email}" placeholder="Enter Mail Id">
+                                </div>
+
+
+                                <!--Work Field-->
+                                <div class="input-group mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" th:field="*{work}" placeholder="Enter Work Details">
+                                </div>
+
+
+                                <!--Description-->
+                                <div class="form-group mt-3">
+                                    <textarea class="form-control" th:field="*{description}" cols="5" rows="5" placeholder="Enter Description">
+
+                                    </textarea>
+                                </div>
+
+
+                                <!--Image Field-->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa-solid fa-upload"></i>
+                                        </div>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" th:field="*{image}" class="custom-file-input" >
+                                    </div>
+                                </div>
+
+
+                                <div class="container text-center mt-3">
+                                    <button type="submit" class="btn btn-primary">Save Contact</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

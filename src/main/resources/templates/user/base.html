@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<nav class="navbar top-fixed navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand " href="#">Smart Contact Manager</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,14 +41,14 @@
 
     <a href="#"><i class="fa-solid fa-igloo"></i> Home</a>
     <a href="#"><i class="fa fa-id-card-alt"></i> View Contacts</a>
-    <a href="#"><i class="fa fa-pencil-alt"></i> Add Contact</a>
+    <a href="#" th:href="@{/user/addContact}"><i class="fa fa-pencil-alt"></i> Add Contact</a>
     <a href="#"><i class="fa fa-user-circle"></i> Your Profile</a>
     <a href="#"><i class="fa fa-cogs"></i> Setting</a>
-    <a href="#"><i class="fa fa-sign-out-alt"></i> Logout</a>
+    <a href="#" th:href="@{/logout}"><i class="fa fa-sign-out-alt"></i> Logout</a>
     <div class="divider"></div>
 </div>
 <!--End of Side Bar and Start of Content-->
-<div class="content">
+<div class="content mt-3">
     <i onclick="toggleSideBar()" class="fas fa-bars"></i>
     <div th:replace="${content}"></div>
 </div>
