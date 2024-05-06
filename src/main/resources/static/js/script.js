@@ -10,3 +10,7 @@ let toggleSideBar = () => {
         $('.content').css('margin-left','20%');
     }
 };
+
+tinymce.init({
+      selector: 'textarea#default',
+     });

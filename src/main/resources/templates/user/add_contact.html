@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>${title}</title>
+    <script src="https://cdn.tiny.cloud/1/pxi5z6c562637alpfz3wog93er691me3fid934jmk7dbr1vz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+          selector: '#default'
+        });
+    </script>
+
 </head>
 <body>
     <section>
         <div class="card m-3">
             <div class="card-body">
                 <div class="container-fluid">
+                    <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-success" role="alert">
+                        <span th:text="${session.message.content}"></span>
+                    </div>
+                    <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
                     <div class="row">
                         <div class="col-md-8 offset-md-2">
                             <h4 class="text-center p-2 text-weight-bold text-uppercase">Add Contact</h4>
@@ -70,7 +81,7 @@
 
                                 <!--Description-->
                                 <div class="form-group mt-3">
-                                    <textarea class="form-control" th:field="*{description}" cols="5" rows="5" placeholder="Enter Description">
+                                    <textarea id="default" class="form-control" th:field="*{description}" cols="5" rows="5" placeholder="Enter Description">
 
                                     </textarea>
                                 </div>
@@ -84,7 +95,8 @@
                                         </div>
                                     </div>
                                     <div class="custom-file">
-                                        <input type="file" th:field="*{image}" class="custom-file-input" >
+                                        <input type="file" name="imageFile" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                     </div>
                                 </div>
 
@@ -100,6 +112,7 @@
                 </div>
             </div>
         </div>
-    </section>
+</section>
+
 </body>
 </html>
