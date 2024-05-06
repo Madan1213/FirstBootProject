@@ -119,4 +119,30 @@ public class UserController {
         return "user/contact_list";
     }
 
+    @GetMapping("/contactDetails/{cid}")
+    public String contactDetails(@PathVariable("cid") Integer cid, Model model,Principal principal)
+    {
+        String name = principal.getName();
+        User user = repository.findUserByEmail(name);
+        Contact contact = contactRepository.findById(cid).get();
+
+        if(user.getId()==contact.getUser().getId())
+            model.addAttribute("contact",contact);
+        return "user/contact_details";
+    }
+
+    @GetMapping("/deleteContact/{cid}")
+    public String deleteContact(@PathVariable("cid") Integer cid,Principal principal)
+    {
+        Contact contact = contactRepository.findById(cid).get();
+        String name = principal.getName();
+        User user = repository.findUserByEmail(name);
+
+        if(user.getId()==contact.getUser().getId()) {
+            contact.setUser(null);
+            contactRepository.delete(contact);
+        }
+        return "redirect:/user/showContacts/0";
+    }
+
 }

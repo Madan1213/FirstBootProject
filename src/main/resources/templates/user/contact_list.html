@@ -25,11 +25,14 @@
                     <td th:text="${c.cid}"></td>
                     <td>
                         <img src="" th:src="@{'/img/'+${c.image}}" class="my_profile_picture">
-                        <span th:text="${c.name}"></span>
+                        <a href="#" th:href="@{'/user/contactDetails/'+${c.cid}}"> <span th:text="${c.name}"></span></a>
                     </td>
                     <td th:text="${c.phone}"></td>
                     <td th:text="${c.email}"></td>
-                    <td></td>
+                    <td>
+                        <button class="btn btn-sm btn-secondary">Edit</button>
+                        <button class="btn btn-sm btn-danger"><a class="text-reset" th:href="@{'/user/deleteContact/'+${c.cid}}">Delete</a></button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
