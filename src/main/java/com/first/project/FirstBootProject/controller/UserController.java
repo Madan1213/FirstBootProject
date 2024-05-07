@@ -145,4 +145,40 @@ public class UserController {
         return "redirect:/user/showContacts/0";
     }
 
+    @GetMapping("/editContact/{cid}")
+    public String editContact(@PathVariable("cid") Integer cid, Model model , Principal principal)
+    {
+        Contact contact = contactRepository.findById(cid).get();
+        String name = principal.getName();
+        User user = repository.findUserByEmail(name);
+        if(user.getId()==contact.getUser().getId())
+        {
+            model.addAttribute("contact",contact);
+        }
+
+        return "/user/edit_contact";
+    }
+
+    @PostMapping("/updateContact/{cid}")
+    public String updateContact(@PathVariable("cid") Integer cid,
+                                @ModelAttribute("contact") Contact contact,Model model , 
+                                HttpSession session, Principal principal)
+    {
+        try{
+            String name = principal.getName();
+            User user = repository.findUserByEmail(name);
+            contact.setUser(user);
+            //contact.setCid(cid);
+            contactRepository.save(contact);
+            session.setAttribute("message",new Messages("Contact Updated Successfully!!","alert-success"));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            session.setAttribute("message",new Messages("Failed!!","alert-danger"));
+        }
+
+        return "redirect:/user/addContact";
+    }
+
 }

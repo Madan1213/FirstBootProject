@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
     <section>
@@ -10,7 +11,7 @@
             <div class="card-body">
                 <h3 class="text-center">Your Contacts List</h3>
             </div>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" id="example">
                 <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -30,8 +31,8 @@
                     <td th:text="${c.phone}"></td>
                     <td th:text="${c.email}"></td>
                     <td>
-                        <button class="btn btn-sm btn-secondary">Edit</button>
-                        <button class="btn btn-sm btn-danger"><a class="text-reset" th:href="@{'/user/deleteContact/'+${c.cid}}">Delete</a></button>
+                       <a th:href="@{'/user/editContact/'+${c.cid}}"> <button class="btn btn-sm btn-secondary">Edit</button></a>
+                        <button class="btn btn-sm btn-danger delete-contact" type="submit" th:id="${c.cid}">Delete</button>
                     </td>
                 </tr>
                 </tbody>
