@@ -177,7 +177,6 @@ public class UserController {
             e.printStackTrace();
             session.setAttribute("message",new Messages("Failed!!","alert-danger"));
         }
-
         return "redirect:/user/addContact";
     }
 
