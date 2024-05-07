@@ -9,7 +9,7 @@ public class LoginController
     @GetMapping("/showLoginForm")
     public String showLoginForm()
     {
-        System.out.println("LOGIN PAGE");
+        System.out.println("LOGIN PAGE ");
         return "login";
     }
 }
