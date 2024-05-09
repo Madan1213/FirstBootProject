@@ -12,6 +12,10 @@
                 <div class="container">
                     <h4 class="text-center font-weight-bold mb-3">Change Password</h4>
                     <form th:action="@{/changePassword}" method="post" class="col-md-8 offset-2">
+                        <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-success">
+                            <span th:text="${session.message.content}"></span>
+                        </div>
+                        <th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
                         <div class="input-group mt-2">
                             <input class="form-control" type="password" name="oldPassword" placeholder="Enter Old Password">
                         </div>

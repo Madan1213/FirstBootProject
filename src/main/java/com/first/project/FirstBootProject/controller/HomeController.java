@@ -63,11 +63,11 @@ public class HomeController
             }
             if(result.hasErrors())
             {
-                System.out.println("VALIDA"+result);
                 model.addAttribute("user",user);
                 return "signup";
             }
             user.setRole("ROLE_USER");
+            user.setImageUrl("contact.png");
             user.setEnabled(true);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User user1 = service.saveUser(user);

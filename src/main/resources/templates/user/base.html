@@ -12,7 +12,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
-
+    <script src="https://cdn.tiny.cloud/1/pxi5z6c562637alpfz3wog93er691me3fid934jmk7dbr1vz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+          selector: '#default'
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar top-fixed navbar-expand-lg navbar-light bg-primary">
@@ -41,7 +46,7 @@
 <div class="sidebar">
     <span class="crossBtn" onclick="toggleSideBar()">&times;</span>
 
-    <a href="#"><i class="fa-solid fa-igloo"></i> Home</a>
+    <a href="#" th:href="@{/user/index}"><i class="fa-solid fa-igloo"></i> Home</a>
     <a href="#" th:href="@{/user/showContacts/0}"><i class="fa fa-id-card-alt"></i> View Contacts</a>
     <a href="#" th:href="@{/user/addContact}"><i class="fa fa-pencil-alt"></i> Add Contact</a>
     <a href="#"><i class="fa fa-user-circle"></i> Your Profile</a>

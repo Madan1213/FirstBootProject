@@ -1,5 +1,6 @@
 package com.first.project.FirstBootProject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class Contact
     @Column(length = 500)
     private String description;
     @ManyToOne
+    @JsonIgnore
     private User user;
 }

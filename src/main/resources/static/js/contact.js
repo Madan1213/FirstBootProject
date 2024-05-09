@@ -31,4 +31,32 @@ $(document).ready(function(){
         });
     });
 
+    //Searching option
+    const search = () => {
+        let query = $('#search-input').val();
+
+        if(query==""){
+            $('.search-result').hide()
+        }else{
+            let url =`http://localhost:8181/smartcontact/search/${query}`
+            fetch(url).then(response => response.json())
+            .then(data=>{
+                let htmlBody = `<div class='list-group'>`
+
+                data.forEach((contact)=>{
+                    htmlBody += `<a href='/smartcontact/user/contactDetails/${contact.cid}' class="list-group-item list-group-item-action">${contact.name}</a>`
+                });
+
+                htmlBody += `</div>`
+                $('.search-result').html(htmlBody);
+                $('.search-result').show();
+            })
+
+        }
+    }
+
+    $('#search-input').on('keyup', function(){
+        search();
+    });
+
 });
